@@ -22,7 +22,7 @@ const Home = () => {
     //     else setName("Yoshi")
     // }
 
-    // const handleClickAgain = (name, event)=>{
+    // const handleClickAgain = (name,   event)=>{
     //     console.log(`Hello ${name}`)
     //     // console.log(event) 
     // }
@@ -30,6 +30,7 @@ const Home = () => {
     return (
         <div className="home">
             <BlogList blogs={blogs} title="All Blogs!"/>
+            <BlogList blogs={blogs.filter((blog)=>blog.author==="Author 2")} title="Mario's Blogs!"/>
             {/* <div>
                 {blogs.map((blog)=>(
                     <div className="blog-preview" key={blog.id}>
