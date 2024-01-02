@@ -6,13 +6,13 @@ import Create from "./Create"
 import React from "react"
 
 function App() {
-  const title="Welcome to the New Blog"
-  const likes=50
+  // const title="Welcome to the New Blog"
+  // const likes=50
   // const person = {
   //   name: "Yoshi", 
   //   age: 30
   // }
-  const link = "http://www.google.com/"
+  // const link = "http://www.google.com/"
 
   return (
     <Router>

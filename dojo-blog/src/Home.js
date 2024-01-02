@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react"
 import BlogList from "./BlogList";
 
@@ -13,11 +13,18 @@ const Home = () => {
         {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
     ])
 
+    const [name, setName] = useState("Mario")
+
     const handleDelete = (id)=>{
         const newBlogs = blogs.filter((blog)=>blog.id!==id)
         setblogs(newBlogs)
     }
 
+    useEffect(()=>{
+        console.log("useEffect ran")
+        // never set states of vars inside useEffect, might end up in infinite loop
+        console.log(name)
+    },[name])
 
     // const handleClick = (event)=>{
     //     // console.log("Hello Ninjas")
@@ -36,6 +43,8 @@ const Home = () => {
     return (
         <div className="home">
             <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>
+            <button onClick={()=>{setName("Luigi")}}>Change Name</button>
+            <p>{name}</p>
             {/* <BlogList blogs={blogs.filter((blog)=>blog.author==="Author 2")} title="Mario's Blogs!"/> */}
             {/* <div>
                 {blogs.map((blog)=>(
