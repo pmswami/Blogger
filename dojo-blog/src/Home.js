@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react"
 import BlogList from "./BlogList";
 
 const Home = () => {
@@ -11,6 +12,11 @@ const Home = () => {
         {title: "Title 2", body:"Body 2", author: "Author 2", id:2},
         {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
     ])
+
+    const handleDelete = (id)=>{
+        const newBlogs = blogs.filter((blog)=>blog.id!==id)
+        setblogs(newBlogs)
+    }
 
 
     // const handleClick = (event)=>{
@@ -29,8 +35,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            <BlogList blogs={blogs} title="All Blogs!"/>
-            <BlogList blogs={blogs.filter((blog)=>blog.author==="Author 2")} title="Mario's Blogs!"/>
+            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>
+            {/* <BlogList blogs={blogs.filter((blog)=>blog.author==="Author 2")} title="Mario's Blogs!"/> */}
             {/* <div>
                 {blogs.map((blog)=>(
                     <div className="blog-preview" key={blog.id}>
