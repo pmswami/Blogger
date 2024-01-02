@@ -4,27 +4,44 @@ import BlogList from "./BlogList";
 
 const Home = () => {
 
+    const [isPending, setIsPending] = useState(true)
+
     // let name = "Mario";
     // const [name, setName] = useState("Mario")
     // const [age, setAGe] = useState(20)
-    const [blogs, setblogs] = useState([
-        {title: "Title 1", body:"Body 1", author: "Author 1", id:1},
-        {title: "Title 2", body:"Body 2", author: "Author 2", id:2},
-        {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
-    ])
+    // const [blogs, setblogs] = useState([
+    //     {title: "Title 1", body:"Body 1", author: "Author 1", id:1},
+    //     {title: "Title 2", body:"Body 2", author: "Author 2", id:2},
+    //     {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
+    // ])
+    const [blogs, setblogs] = useState(null)
 
-    const [name, setName] = useState("Mario")
+    // const [name, setName] = useState("Mario")
 
-    const handleDelete = (id)=>{
-        const newBlogs = blogs.filter((blog)=>blog.id!==id)
-        setblogs(newBlogs)
-    }
+    // const handleDelete = (id)=>{
+    //     const newBlogs = blogs.filter((blog)=>blog.id!==id)
+    //     setblogs(newBlogs)
+    // }
+
+    // useEffect(()=>{
+    //     console.log("useEffect ran")
+    //     // never set states of vars inside useEffect, might end up in infinite loop
+    //     console.log(name)
+    // },[name])
 
     useEffect(()=>{
-        console.log("useEffect ran")
-        // never set states of vars inside useEffect, might end up in infinite loop
-        console.log(name)
-    },[name])
+        setTimeout(()=>{
+            fetch("http://localhost:8000/blogs")
+            .then(res=>{
+                return res.json()
+            })
+            .then(data =>{
+                // console.log(data)
+                setblogs(data)
+                setIsPending(false)
+            })
+        }, 1000)
+    },[])
 
     // const handleClick = (event)=>{
     //     // console.log("Hello Ninjas")
@@ -42,9 +59,11 @@ const Home = () => {
 
     return (
         <div className="home">
-            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>
-            <button onClick={()=>{setName("Luigi")}}>Change Name</button>
-            <p>{name}</p>
+            {isPending && <div>Loading</div>}
+            {/* {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>} */}
+            {blogs && <BlogList blogs={blogs} title="All Blogs!"/>}
+            {/* <button onClick={()=>{setName("Luigi")}}>Change Name</button>
+            <p>{name}</p> */}
             {/* <BlogList blogs={blogs.filter((blog)=>blog.author==="Author 2")} title="Mario's Blogs!"/> */}
             {/* <div>
                 {blogs.map((blog)=>(
