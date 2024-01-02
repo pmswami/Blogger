@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import React from "react"
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
+    const {data: blogs, isPending, error} = useFetch("http://localhost:8000/blogs")
 
-    const [isPending, setIsPending] = useState(true)
+    // const [isPending, setIsPending] = useState(true)
 
     // let name = "Mario";
     // const [name, setName] = useState("Mario")
@@ -14,8 +16,8 @@ const Home = () => {
     //     {title: "Title 2", body:"Body 2", author: "Author 2", id:2},
     //     {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
     // ])
-    const [blogs, setblogs] = useState(null)
-    const [error, setError] = useState(null)
+    // const [blogs, setblogs] = useState(null)
+    // const [error, setError] = useState(null)
 
     // const [name, setName] = useState("Mario")
 
@@ -30,29 +32,29 @@ const Home = () => {
     //     console.log(name)
     // },[name])
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            fetch("http://localhost:8000/blogs")
-            .then(res=>{
-                // console.log(res)
-                if(!res.ok){
-                    throw Error("Could not fetch the data")
-                }
-                return res.json()
-            })
-            .then(data =>{
-                // console.log(data)
-                setblogs(data)
-                setIsPending(false)
-                setError(null)
-            })
-            .catch((err)=>{
-                console.log(err.message)
-                setError(err.message)
-                setIsPending(false)
-            })
-        }, 1000)
-    },[])
+    // useEffect(()=>{
+    //     setTimeout(()=>{
+    //         fetch("http://localhost:8000/blogs")
+    //         .then(res=>{
+    //             // console.log(res)
+    //             if(!res.ok){
+    //                 throw Error("Could not fetch the data")
+    //             }
+    //             return res.json()
+    //         })
+    //         .then(data =>{
+    //             // console.log(data)
+    //             setblogs(data)
+    //             setIsPending(false)
+    //             setError(null)
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err.message)
+    //             setError(err.message)
+    //             setIsPending(false)
+    //         })
+    //     }, 1000)
+    // },[])
 
     // const handleClick = (event)=>{
     //     // console.log("Hello Ninjas")
