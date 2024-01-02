@@ -15,6 +15,7 @@ const Home = () => {
     //     {title: "Title 3", body:"Body 3", author: "Author 3", id:3}
     // ])
     const [blogs, setblogs] = useState(null)
+    const [error, setError] = useState(null)
 
     // const [name, setName] = useState("Mario")
 
@@ -33,11 +34,21 @@ const Home = () => {
         setTimeout(()=>{
             fetch("http://localhost:8000/blogs")
             .then(res=>{
+                // console.log(res)
+                if(!res.ok){
+                    throw Error("Could not fetch the data")
+                }
                 return res.json()
             })
             .then(data =>{
                 // console.log(data)
                 setblogs(data)
+                setIsPending(false)
+                setError(null)
+            })
+            .catch((err)=>{
+                console.log(err.message)
+                setError(err.message)
                 setIsPending(false)
             })
         }, 1000)
@@ -59,7 +70,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            {isPending && <div>Loading</div>}
+            {error && <div>{error}</div>}
+            {isPending && <div>Loading...</div>}
             {/* {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>} */}
             {blogs && <BlogList blogs={blogs} title="All Blogs!"/>}
             {/* <button onClick={()=>{setName("Luigi")}}>Change Name</button>
